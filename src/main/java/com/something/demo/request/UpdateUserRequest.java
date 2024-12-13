@@ -1,10 +1,8 @@
 package com.something.demo.request;
 
 import com.something.demo.entity.Role;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class CreateUserRequest {
+public class UpdateUserRequest {
     private String name;
     private String dateOfBirth;
     private int age;
