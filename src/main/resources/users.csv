@@ -1,0 +1,11 @@
+name,dateOfBirth,age,username,password,role
+Pele,23/10/1940,83,pele.king,pele123,USER
+Diego Maradona,30/10/1960,63,diego.maradona,handOfGod,USER
+Johan Cruyff,25/04/1947,77,johan.cruyff,cruyff14,USER
+Zinedine Zidane,23/06/1972,52,zinedine.zidane,zidane10,USER
+Ronaldo Nazario,18/09/1976,47,ronaldo.nazario,phenomenon,USER
+Ronaldinho,21/03/1980,44,ronaldinho.gaucho,ronaldinho10,USER
+George Best,22/05/1946,78,george.best,belfastBoy,USER
+Michel Platini,21/06/1955,69,michel.platini,platini10,USER
+Franz Beckenbauer,11/09/1945,78,franz.beckenbauer,kaiser10,USER
+Thierry Henry,17/08/1977,46,thierry.henry,henry14,USER

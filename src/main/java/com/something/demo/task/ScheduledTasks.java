@@ -18,22 +18,24 @@ public class ScheduledTasks {
     @Autowired
     private UserRepository userRepository;
 
-    @Scheduled(cron = "1 * * * * ?")
-    public void scheduleTaskWithFixedRate() {
-        List<User> allUser = userRepository.findAll();
-        for(var user : allUser) {
-            user.setAge(user.getAge() + 1);
-        }
-        userRepository.saveAll(allUser);
-        System.out.println("Users's age are updated");
-    }
+    // khi nào cần thì anh dùng nhé
 
-    public void scheduleTaskWithFixedDelay() {
-    }
-
-    public void scheduleTaskWithInitialDelay() {
-    }
-
-    public void scheduleTaskWithCronExpression() {
-    }
+//    @Scheduled(cron = "1 * * * * ?")
+//    public void scheduleTaskWithFixedRate() {
+//        List<User> allUser = userRepository.findAll();
+//        for(var user : allUser) {
+//            user.setAge(user.getAge() + 1);
+//        }
+//        userRepository.saveAll(allUser);
+//        System.out.println("Users's age are updated");
+//    }
+//
+//    public void scheduleTaskWithFixedDelay() {
+//    }
+//
+//    public void scheduleTaskWithInitialDelay() {
+//    }
+//
+//    public void scheduleTaskWithCronExpression() {
+//    }
 }

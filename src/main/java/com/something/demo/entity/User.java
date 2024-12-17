@@ -1,10 +1,7 @@
 package com.something.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import org.bson.types.ObjectId;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -16,13 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
 @Document(collection = "user")
 //@CompoundIndexes({
 //        @CompoundIndex(name = "DOB", def = "{'DOB' : 1}")
 //})
 @CompoundIndex(name = "DOB", def = "{'dateOfBirth' : 1}")
 public class User implements UserDetails{
+    @Id
     private ObjectId id;
     private String name;
     @Indexed
@@ -30,7 +27,6 @@ public class User implements UserDetails{
     private int age;
     private String username;
     private String password;
-    @Enumerated(EnumType.STRING)
     private Role role;
 
 
@@ -41,6 +37,8 @@ public class User implements UserDetails{
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+    public User() {
     }
 
     public Role getRole() {
