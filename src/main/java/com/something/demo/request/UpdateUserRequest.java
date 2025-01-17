@@ -9,6 +9,7 @@ public class UpdateUserRequest {
     private String username;
     private String password;
     private Role role;
+    private String createDate;
 
     public Role getRole() {
         return role;
@@ -37,4 +38,8 @@ public class UpdateUserRequest {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
+
+    public void setCreateDate(String createDate) {this.createDate = createDate;}
+
+    public String getCreateDate() {return createDate;}
 }

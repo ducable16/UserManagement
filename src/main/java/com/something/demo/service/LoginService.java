@@ -26,7 +26,6 @@ public class LoginService {
     public String login(
             @RequestBody LoginRequest request) {
         System.out.println("Not authenticated!!!!!!!!!!!!!!");
-//        if(userRepository.findById(request.getUsername()));
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())

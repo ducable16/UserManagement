@@ -20,7 +20,7 @@ public class UpdateUserService {
     public ResponseEntity<?> updateUser(
             @RequestBody UpdateUserRequest request) {
 
-        User user = new User(request.getName(), request.getDateOfBirth(), request.getAge(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getRole());
+        User user = new User(request.getName(), request.getDateOfBirth(), request.getAge(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getRole(), request.getCreateDate());
 
         return ResponseEntity.ok(userRepository.save(user));
     }

@@ -1,13 +1,11 @@
 package com.something.demo.request;
 
 import com.something.demo.entity.Role;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class CreateUserRequest {
+public class FilterRequest {
     private String name;
     private String dateOfBirth;
-    private int age;
+    private int age = -1;
     private String username;
     private String password;
     private Role role;

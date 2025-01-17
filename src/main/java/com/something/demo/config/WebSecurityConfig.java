@@ -23,7 +23,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebSecurity
 public class WebSecurityConfig {
 
     @Autowired
@@ -39,6 +38,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/register").permitAll()
                         .requestMatchers("/api/start_batch").permitAll()
+                        .requestMatchers("/api/filter").permitAll()
+                        .requestMatchers("/api/save").permitAll()
 //                        .requestMatchers("/").hasAnyRole("USER", "ADMIN")
 //                        .requestMatchers("/systems/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

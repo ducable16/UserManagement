@@ -14,9 +14,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Document(collection = "user")
-//@CompoundIndexes({
-//        @CompoundIndex(name = "DOB", def = "{'DOB' : 1}")
-//})
 @CompoundIndex(name = "DOB", def = "{'dateOfBirth' : 1}")
 public class User implements UserDetails{
     @Id
@@ -28,15 +25,16 @@ public class User implements UserDetails{
     private String username;
     private String password;
     private Role role;
+    private String createDate;
 
-
-    public User(String name, String dateOfBirth, int age, String username, String password, Role role) {
+    public User(String name, String dateOfBirth, int age, String username, String password, Role role, String createDate) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.createDate = createDate;
     }
     public User() {
     }
@@ -69,6 +67,10 @@ public class User implements UserDetails{
     public String getUsername() {
         return username;
     }
+
+    public void setCreateDate(String createDate) {this.createDate = createDate;}
+
+    public String getCreateDate() {return createDate;}
 
     @Override
     public boolean isAccountNonExpired() {

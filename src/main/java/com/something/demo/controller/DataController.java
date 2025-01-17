@@ -1,8 +1,10 @@
 package com.something.demo.controller;
 
-import com.something.demo.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.something.demo.entity.ChatMessage;
+import com.something.demo.factory.FileStorage;
+import com.something.demo.request.FilterRequest;
 import com.something.demo.request.CreateUserRequest;
-import com.something.demo.request.DeleteUserRequest;
 import com.something.demo.request.LoginRequest;
 import com.something.demo.request.UpdateUserRequest;
 import com.something.demo.service.*;
@@ -16,8 +18,6 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -36,6 +36,10 @@ public class DataController {
     private BatchService batchService;
     @Autowired
     JobRepository jobRepository;
+    @Autowired
+    FilterService filterService;
+    @Autowired
+    SaveMessageService saveMessageService;
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(
@@ -44,7 +48,7 @@ public class DataController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<?> createUser(
+    public ResponseEntity<?> deleteUser(
             @RequestParam ObjectId _id) {
         return deleteUserService.deleteUser(_id);
     }
@@ -78,5 +82,13 @@ public class DataController {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Job failed to start: " + e.getMessage());
         }
+    }
+    @GetMapping("/filter")
+    public ResponseEntity<?> filterUser (@RequestBody FilterRequest filterRequest) {
+        return ResponseEntity.ok(filterService.findUserByFilter(filterRequest));
+    }
+    @PostMapping("/save")
+    public ResponseEntity<?> saveUser (@RequestBody ChatMessage chatMessage, @RequestParam String storage) throws JsonProcessingException {
+        return ResponseEntity.ok(saveMessageService.saveUser(chatMessage, storage));
     }
 }

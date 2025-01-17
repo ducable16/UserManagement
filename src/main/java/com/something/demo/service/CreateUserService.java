@@ -24,7 +24,7 @@ public class CreateUserService {
     public ResponseEntity<?> createUser(
             @RequestBody CreateUserRequest request) {
 //        System.out.println("vao");
-        User user = new User(request.getName(), request.getDateOfBirth(), request.getAge(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getRole());
+        User user = new User(request.getName(), request.getDateOfBirth(), request.getAge(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getRole(), request.getCreateDate());
 //        System.out.println("vao : " + user.getName());
         return ResponseEntity.ok(userRepository.insert(user));
     }
