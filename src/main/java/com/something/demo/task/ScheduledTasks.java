@@ -18,7 +18,7 @@ public class ScheduledTasks {
     @Autowired
     private UserRepository userRepository;
 
-    // khi nào cần thì anh dùng nhé
+    // khi nào cần thì anh dùng lại em nhé
 
 //    @Scheduled(cron = "1 * * * * ?")
 //    public void scheduleTaskWithFixedRate() {
