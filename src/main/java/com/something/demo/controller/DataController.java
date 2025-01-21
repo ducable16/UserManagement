@@ -1,8 +1,15 @@
 package com.something.demo.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.something.demo.entity.Book;
 import com.something.demo.entity.ChatMessage;
-import com.something.demo.factory.FileStorage;
+import com.something.demo.factory.request.BaseRequest;
+import com.something.demo.factory.request.DatabaseRequest;
+import com.something.demo.factory.request.RedisRequest;
+import com.something.demo.factory.storage.DatabaseStorageFactory;
+import com.something.demo.factory.storage.RedisStorageFactory;
+import com.something.demo.factory.storage.StorageFactory;
 import com.something.demo.request.FilterRequest;
 import com.something.demo.request.CreateUserRequest;
 import com.something.demo.request.LoginRequest;
@@ -39,7 +46,12 @@ public class DataController {
     @Autowired
     FilterService filterService;
     @Autowired
-    SaveMessageService saveMessageService;
+    BookService bookService;
+    @Autowired
+    DatabaseStorageFactory databaseStorageFactory;
+    @Autowired
+    RedisStorageFactory redisStorageFactory;
+
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(
@@ -87,8 +99,22 @@ public class DataController {
     public ResponseEntity<?> filterUser (@RequestBody FilterRequest filterRequest) {
         return ResponseEntity.ok(filterService.findUserByFilter(filterRequest));
     }
-    @PostMapping("/save")
-    public ResponseEntity<?> saveUser (@RequestBody ChatMessage chatMessage, @RequestParam String storage) throws JsonProcessingException {
-        return ResponseEntity.ok(saveMessageService.saveUser(chatMessage, storage));
+
+
+    @PostMapping("/save-book")
+    public ResponseEntity<?> saveBook (@RequestBody Book book) {
+        return ResponseEntity.ok(bookService.save(book));
+    }
+    @PostMapping("distribute-data")
+    public ResponseEntity<?> distributeData (@RequestBody BaseRequest request) {
+        if(request instanceof RedisRequest) {
+            redisStorageFactory.store((RedisRequest) request);
+            return ResponseEntity.ok((RedisRequest) request);
+        }
+        else if(request instanceof DatabaseRequest) {
+                databaseStorageFactory.store((DatabaseRequest) request);
+                return ResponseEntity.ok((DatabaseRequest) request);
+        }
+        else return ResponseEntity.status(406).build();
     }
 }
