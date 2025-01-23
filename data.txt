@@ -1,1 +1,1 @@
-com.something.demo.entity.ChatMessage@3736e39a
+com.something.demo.entity.Message@3736e39a

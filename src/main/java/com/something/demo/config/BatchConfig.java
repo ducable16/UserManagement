@@ -16,7 +16,7 @@ public class BatchConfig {
         return new EmbeddedDatabaseBuilder()
                 .addScript("classpath:org/springframework/batch/core/schema-drop-h2.sql")
                 .addScript("classpath:org/springframework/batch/core/schema-h2.sql")
-                .setType(EmbeddedDatabaseType.H2)
+                .setType(EmbeddedDatabaseType.H2) 
                 .build();
     }
 

@@ -1,15 +1,13 @@
 package com.something.demo.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.something.demo.entity.Book;
-import com.something.demo.entity.ChatMessage;
+import com.something.demo.entity.Message;
+import com.something.demo.entity.Notification;
 import com.something.demo.factory.request.BaseRequest;
 import com.something.demo.factory.request.DatabaseRequest;
 import com.something.demo.factory.request.RedisRequest;
 import com.something.demo.factory.storage.DatabaseStorageFactory;
 import com.something.demo.factory.storage.RedisStorageFactory;
-import com.something.demo.factory.storage.StorageFactory;
 import com.something.demo.request.FilterRequest;
 import com.something.demo.request.CreateUserRequest;
 import com.something.demo.request.LoginRequest;
@@ -17,6 +15,7 @@ import com.something.demo.request.UpdateUserRequest;
 import com.something.demo.service.*;
 //import com.example.demo.service.LoginService;
 import org.bson.types.ObjectId;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -51,6 +50,8 @@ public class DataController {
     DatabaseStorageFactory databaseStorageFactory;
     @Autowired
     RedisStorageFactory redisStorageFactory;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
 
     @PostMapping("/register")
@@ -116,5 +117,10 @@ public class DataController {
                 return ResponseEntity.ok((DatabaseRequest) request);
         }
         else return ResponseEntity.status(406).build();
+    }
+    @PostMapping("/notify")
+    public ResponseEntity<?> sendMessage(@RequestBody Notification notification) {
+        rabbitTemplate.convertAndSend("directExchange", "noti", notification);
+        return ResponseEntity.ok(notification);
     }
 }

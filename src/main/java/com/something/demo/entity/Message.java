@@ -2,20 +2,19 @@ package com.something.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
-public class ChatMessage {
+public class Message {
 
     private String sender;
     private String message;
     private String receiver;
 
-    public ChatMessage() {}
+    public Message() {}
 
     @JsonCreator
-    public ChatMessage(@JsonProperty("sender") String sender, @JsonProperty("receiver") String receiver, @JsonProperty("message") String message)  {
+    public Message(@JsonProperty("sender") String sender, @JsonProperty("receiver") String receiver, @JsonProperty("message") String message)  {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
@@ -29,7 +28,7 @@ public class ChatMessage {
         this.sender = sender;
     }
 
-    public ChatMessage(String message) {
+    public Message(String message) {
         this.message = message;
     }
 

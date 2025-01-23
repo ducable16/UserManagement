@@ -42,6 +42,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/save").permitAll()
                         .requestMatchers("/api/save-book").permitAll()
                         .requestMatchers("/api/distribute-data").permitAll()
+                        .requestMatchers("/api/message").permitAll()
+                        .requestMatchers("/api/notify").permitAll()
 //                        .requestMatchers("/").hasAnyRole("USER", "ADMIN")
 //                        .requestMatchers("/systems/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
