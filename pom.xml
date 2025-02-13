@@ -30,6 +30,23 @@
 		<java.version>23</java.version>
 	</properties>
 	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.data</groupId>-->
+<!--			<artifactId>spring-data-elasticsearch</artifactId>-->
+<!--			<version>5.1.2</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>co.elastic.clients</groupId>-->
+<!--			<artifactId>elasticsearch-java</artifactId>-->
+<!--			<version>8.10.2</version> &lt;!&ndash; Cập nhật phiên bản này nếu cần &ndash;&gt;-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>

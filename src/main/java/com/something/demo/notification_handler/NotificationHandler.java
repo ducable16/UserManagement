@@ -27,6 +27,7 @@ public class NotificationHandler implements Subject {
         observers.add(o);
     }
 
+
     @Override
     public void removeObserver(Observer o) {
         int i = observers.indexOf(o);

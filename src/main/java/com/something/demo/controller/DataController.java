@@ -1,8 +1,7 @@
 package com.something.demo.controller;
 
-import com.something.demo.entity.Book;
-import com.something.demo.entity.Message;
 import com.something.demo.entity.Notification;
+import com.something.demo.entity.Post;
 import com.something.demo.factory.request.BaseRequest;
 import com.something.demo.factory.request.DatabaseRequest;
 import com.something.demo.factory.request.RedisRequest;
@@ -25,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class DataController {
@@ -45,16 +46,15 @@ public class DataController {
     @Autowired
     FilterService filterService;
     @Autowired
-    BookService bookService;
-    @Autowired
     DatabaseStorageFactory databaseStorageFactory;
     @Autowired
     RedisStorageFactory redisStorageFactory;
     @Autowired
     RabbitTemplate rabbitTemplate;
+    @Autowired
+    ElasticService elasticService;
 
-
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public ResponseEntity<?> createUser(
             @RequestBody CreateUserRequest request) {
         return ResponseEntity.ok(createUserService.createUser(request));
@@ -77,7 +77,7 @@ public class DataController {
             @RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(updateUserService.updateUser(request));
     }
-    @PostMapping("/start_batch")
+    @PostMapping("/start-batch")
     public ResponseEntity<String> startBatchJob() {
         try {
             // Tạo JobParameters mới (tham số cho job)
@@ -102,10 +102,6 @@ public class DataController {
     }
 
 
-    @PostMapping("/save-book")
-    public ResponseEntity<?> saveBook (@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.save(book));
-    }
     @PostMapping("distribute-data")
     public ResponseEntity<?> distributeData (@RequestBody BaseRequest request) {
         if(request instanceof RedisRequest) {
@@ -118,9 +114,24 @@ public class DataController {
         }
         else return ResponseEntity.status(406).build();
     }
-    @PostMapping("/notify")
+    @PostMapping("/notification")
     public ResponseEntity<?> sendMessage(@RequestBody Notification notification) {
         rabbitTemplate.convertAndSend("directExchange", "noti", notification);
         return ResponseEntity.ok(notification);
+    }
+    @PostMapping("/post")
+    public ResponseEntity<?> savePost(@RequestBody Post post) {
+        elasticService.savePost(post);
+        return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/search")
+    public List<Post> searchPost (@RequestParam String text) {
+        return elasticService.search(text);
+    }
+
+    @GetMapping("/all-post")
+    public List<Post> getAllPost () {
+        return elasticService.allPost();
     }
 }

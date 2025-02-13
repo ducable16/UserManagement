@@ -35,18 +35,18 @@ public class WebSecurityConfig {
         http
                 .csrf((AbstractHttpConfigurer::disable))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/login").permitAll()
-                        .requestMatchers("/api/register").permitAll()
-                        .requestMatchers("/api/start_batch").permitAll()
-                        .requestMatchers("/api/filter").permitAll()
-                        .requestMatchers("/api/save").permitAll()
-                        .requestMatchers("/api/save-book").permitAll()
-                        .requestMatchers("/api/distribute-data").permitAll()
-                        .requestMatchers("/api/message").permitAll()
-                        .requestMatchers("/api/notify").permitAll()
+//                        .requestMatchers("/api/login").permitAll()
+//                        .requestMatchers("/api/register").permitAll()
+//                        .requestMatchers("/api/start_batch").permitAll()
+//                        .requestMatchers("/api/filter").permitAll()
+//                        .requestMatchers("/api/save").permitAll()
+//                        .requestMatchers("/api/save-book").permitAll()
+//                        .requestMatchers("/api/distribute-data").permitAll()
+//                        .requestMatchers("/api/message").permitAll()
+//                        .requestMatchers("/api/notify").permitAll()
 //                        .requestMatchers("/").hasAnyRole("USER", "ADMIN")
 //                        .requestMatchers("/systems/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }
