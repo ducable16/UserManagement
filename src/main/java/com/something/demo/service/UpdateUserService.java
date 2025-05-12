@@ -23,5 +23,6 @@ public class UpdateUserService {
         User user = new User(request.getName(), request.getDateOfBirth(), request.getAge(), request.getUsername(), passwordEncoder.encode(request.getPassword()), request.getRole(), request.getCreateDate());
         //hello xin chao
         return ResponseEntity.ok(userRepository.save(user));
+        // goodbye tam biet
     }
 }
